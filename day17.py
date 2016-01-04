@@ -1,12 +1,12 @@
 myinput = [50, 44, 11, 49, 42, 46, 18, 32, 26, 40, 21, 7, 18, 43, 10, 47, 36, 24, 22, 40]
-#myinput = [20, 15, 10, 5, 5, 3, 2]
+#myinput = [20, 15, 10, 5, 5, 3, 2]  # Alternate list for testing
 myinput.sort()
 
-debug = False
+debug = False  # enabling debug causes many print debug statements to fire
 verboseOutput = False
 secondQuestion = True
 totalGallons = 150
-#25
+# if testing using alternate data, totalGallons is 25
 if debug is True: print "totalGallons: " + str(totalGallons)
 
 myinput = list(reversed(myinput))
@@ -40,10 +40,6 @@ def look_for_smaller_container(index, container):
             if debug is True: print "\t" * len(indices) + "into recursion"
             look_for_smaller_container(index+iterator, container-myinput[index+iterator])
             if debug is True: print "\t" * len(indices) + "out of recursion"
-        '''elif myinput[index+iterator] > container:
-            if debug is True: print "\t" * len(indices) + str(myinput[index+iterator]) + " is greater than " + str(container)
-            if look_for_smaller_container(index+iterator, container+myinput[index+iterator]) is False:
-                return False'''
         iterator += 1
     indices = indices[:len(indices)-1]
 
