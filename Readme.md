@@ -1,6 +1,6 @@
 # Advent of Code Entries #
 
-Here a few entries to the Advent of Code challenge, which is a coding challenge advent calendar created by Eric Wastl.
+Here a few entries to the Advent of Code challenge, which is a coding challenge advent calendar created by Eric Wastl. I take no credit for the challenges listed below, they are merely reproduced here to contextualize the solutions I wrote.
 
 For more info: [Advent of Code page](http://adventofcode.com/2015/about)
 
