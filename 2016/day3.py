@@ -26,4 +26,4 @@ if __name__ == '__main__':
     if debug is False: stream = prod
     triangles = string_to_list(stream)
     print "Number of valid triangles: "
-    print len([x for x in triangles where is_valid_triangle(x)])
+    # print len([x for x in triangles where is_valid_triangle(x)])
