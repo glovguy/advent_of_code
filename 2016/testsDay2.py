@@ -1,7 +1,7 @@
 import unittest
 from day2 import *
 
-class test_functions_in_IntentionPrompts(unittest.TestCase):
+class test_day2(unittest.TestCase):
     def test_current_button(self):
         self.assertEqual(Keypad().current_button(), '5')
 
