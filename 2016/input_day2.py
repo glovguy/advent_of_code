@@ -8,3 +8,6 @@ test = '''ULL
 RRDDD
 LURDL
 UUUUD'''
+
+newline = '''
+'''
