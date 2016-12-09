@@ -8,6 +8,7 @@ class test_day3(unittest.TestCase):
         self.assertEqual(is_valid_triangle([3,2,4]), True)
         self.assertEqual(is_valid_triangle([1,2,4]), False)
         self.assertEqual(is_valid_triangle([1,2,10]), False)
+        self.assertEqual(is_valid_triangle([1,2,3]), False)
 
     def test_string_to_list(self):
         first = '''    4   21  894'''
