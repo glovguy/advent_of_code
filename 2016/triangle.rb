@@ -3,7 +3,7 @@ class Triangle
   protected :sides
 
   def initialize(sides)
-    sides = Array.new(sides) unless sides.is_a? Array
+    raise 'Incorrect number of sides' unless sides.length == 3
     @sides = sides.sort
   end
 
@@ -13,5 +13,9 @@ class Triangle
       else
         return false
       end
+  end
+
+  def to_s
+    @sides.join(",")
   end
 end
