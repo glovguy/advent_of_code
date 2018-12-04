@@ -16,8 +16,8 @@ class CompositeSurface {
   }
   get length() { return this.surfaces.length; }
   add(other) { return new CompositeSurface([...this.surfaces, ...other.surfaces]); }
-  union(other) {
-    const newSurfaces = this.surfaces.map(rect => rect.union(other))
+  overlap(other) {
+    const newSurfaces = this.surfaces.map(rect => rect.overlap(other))
       .filter(r => r != undefined);
     return new CompositeSurface(newSurfaces);
   }
@@ -25,9 +25,9 @@ class CompositeSurface {
     if (this.surfaces.length == 0) { return 0; }
     const first = this.surfaces[0];
     const others = new CompositeSurface(this.surfaces.slice(1,this.surfaces.length));
-    const totalUnion = others.union(first);
-    const unionArea = (totalUnion != undefined) ? totalUnion.area : 0;
-    return first.area + others.area - unionArea;
+    const totalOverlap = others.overlap(first);
+    const overlapArea = (totalOverlap != undefined) ? totalOverlap.area : 0;
+    return first.area + others.area - overlapArea;
   }
 }
 
@@ -45,7 +45,7 @@ class Rect {
 
   get area() { return this.width * this.height; }
 
-  union(other) {
+  overlap(other) {
     const left = Math.max(this.left,other.left);
     const right = Math.min(this.right,other.right);
     const top = Math.max(this.top,other.top);
@@ -75,7 +75,7 @@ const rects = data.map(d => {
 let tallySurface = new CompositeSurface([])
 for (let i=0; i<rects.length; i++) {
   const remainingRects = rects.slice(i+1,rects.length);
-  const overlapSurface = new CompositeSurface(remainingRects).union(rects[i]);
+  const overlapSurface = new CompositeSurface(remainingRects).overlap(rects[i]);
   tallySurface = tallySurface.add(overlapSurface);
 }
 
