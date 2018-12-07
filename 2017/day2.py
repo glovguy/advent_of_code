@@ -31,3 +31,9 @@ with open('day2_data.csv', 'r') as csvFile:
 
 print("Part two check sum: ")
 print(div_sum)
+
+div_sum2 = 0
+with open('day2_data.csv', 'r') as csvFile:
+    div_sum2 += [int(x) for eachRow in csvFile for x in eachRow.split()]
+print("Part two check sum: ")
+print(div_sum2)

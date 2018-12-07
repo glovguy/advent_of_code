@@ -1,6 +1,8 @@
 //
 //  Day 3
 //
+//  Part 1
+//
 
 /*   ^
 ** y |
@@ -86,3 +88,14 @@ let manhattanDistance = (coord: memoryCoordinates): number => {
 }
 
 dayThreeSolve();
+
+//
+//  Part 1
+//
+
+interface memoryItem {
+  coordinates: memoryCoordinates;
+  value: number;
+}
+
+let adjacentMemory = (coord: memoryCoordinates): Array<memoryItem>
