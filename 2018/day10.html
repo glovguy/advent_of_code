@@ -1,0 +1,59 @@
+<canvas id="message" width="1265" height="492">
+</canvas>
+<input type="range" min="0" max="50000" value="0" class="slider" id="myRange" width="1265px">
+<span id="timeDisplay"></span>
+<script type="text/javascript" src="day10_data.js"></script>
+<script type="text/javascript">
+  const canvas = document.querySelector('#message');
+  const ctx = canvas.getContext('2d');
+  let multX;
+  let multY;
+
+  const slider = document.getElementById("myRange");
+  const timeDisplay = document.getElementById("timeDisplay");
+  slider.oninput = function() {
+    timeDisplay.innerHTML = this.value;
+    draw_points(this.value);
+  }
+
+  class Vector {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
+  class Point {
+    constructor(x,y,velX,velY) {
+      this.pos = new Vector(x,y);
+      this.vel = new Vector(velX,velY);
+    }
+  }
+
+  const rawDataReg = /position.. ?([-|\d]+), +([-|\d]+). velocity.. ?([-|\d]+), +([-|\d]+)./;
+  const data = rawData.split('\n').map(d => {
+    const [_,x,y,velX,velY] = d.match(rawDataReg).map(parseFloat);
+    return new Point(x,y,velX,velY);
+  });
+
+  function draw_points(time) {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'black';
+    const points = data.map(p => {
+      return new Vector(
+       (p.pos.x)+(p.vel.x*time),
+       (p.pos.y)+(p.vel.y*time)
+      );
+    });
+    multX = 0.5*canvas.width / Math.max(...points.map(d => d.x));
+    multY = 0.5*canvas.height / Math.max(...points.map(d => d.y));
+    points.forEach(p => {
+      ctx.fillRect(
+        multX*(p.x)+(multX*2.0),
+        multY*(p.y)+(multY*2.0),
+        5,5);
+    });
+  }
+  draw_points(0);
+</script>
