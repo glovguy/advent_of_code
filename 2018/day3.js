@@ -11,6 +11,7 @@ class CompositeSurface {
   constructor(surfaces) { this.surfaces = surfaces; }
   get length() { return this.surfaces.length; }
   get isEmpty() { return this.surfaces.length == 0; }
+  get centroid() { return this.surfaces.map(r => r.centroid).reduce((a,b) => a+b); }
   add(other) { return new CompositeSurface([...this.surfaces, ...other.surfaces]); }
   overlap(other) {
     const newSurfaces = this.surfaces.map(r => r.overlap(other))
@@ -35,6 +36,9 @@ class Rect {
     this.id = id;
   }
   get surfaces() { return [this]; }
+  get centroid() {
+    return new Vector(this.pos.x + this.width/2.0, this.pos.y + this.height/2.0);
+  }
   get left() { return this.pos.x; }
   get right() { return this.pos.x + this.width; }
   get top() { return this.pos.y; }
@@ -90,6 +94,8 @@ function data_from_puzzle_input() {
 let rects = data_from_puzzle_input();
 
 
+const testCentroid = new Rect(2,2,1,3).centroid;
+console.assert(testCentroid.x == 2.5 && testCentroid.y == 3.5, 'rect centroid')
 console.assert(new Rect(2,2,1,3).overlap(new Rect(2,2,1,3)).area == 3, 'overlap identical rect');
 console.assert(new Rect(2,2,1,3).overlap(new Rect(2,2,1,2)).area == 2, 'overlap partial rect');
 console.assert(new Rect(1,3,4,4).overlap(new Rect(3,1,4,4)).area == 4, 'overlap separate rect');
@@ -105,6 +111,7 @@ const oneThreeFourFour = new CompositeSurface([new Rect(1,3,4,4)]);
 const threeOneFourFour = new CompositeSurface([new Rect(3,1,4,4)]);
 const severalRects = new CompositeSurface([new Rect(3,1,4,4), new Rect(1,1,1,1), new Rect(7,7,1,1)]);
 const severalIdenticalRects = new CompositeSurface([new Rect(3,1,4,4), new Rect(3,1,4,4), new Rect(3,1,4,4)]);
+console.assert(twoTwoOneThree.centroid.x == 2.5 && twoTwoOneThree.centroid.y == 3.5, 'CompositeSurface centroid');
 console.assert(
   twoTwoOneThree.overlap(twoTwoOneThree).area == 3,
   'overlap identical composite surfaces');
