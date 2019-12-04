@@ -37,9 +37,7 @@ def points_from_instructions(instr):
     points = []
     for i in range(0, len(lines)-1):
         points += (p for p in points_in_line(lines[i],lines[i+1]))
-    pSet = set(points)
-    pSet.discard((0,0))
-    return pSet
+    return points
 
 
 def intersections(instr1, instr2):
@@ -48,8 +46,25 @@ def intersections(instr1, instr2):
     return set(points1) & set(points2)
 
 
+def intersections_with_step_count(instr1, instr2):
+    points1 = points_from_instructions(instr1)
+    points2 = points_from_instructions(instr2)
+    intersection = set(points1) & set(points2)
+    pwi1 = [[p, i] for i, p in enumerate(points1) if p in intersection]
+    pwi2 = [[p, i] for i, p in enumerate(points2) if p in intersection]
+    intr_with_step = []
+    for p1, i in pwi1:
+        for p2, j in pwi2:
+            if p1 != p2: continue
+            score = i + j
+            intr_with_step += [p1, score]
+    return intr_with_step
+
+print(intersections_with_step_count('R8,U5,L5,D3','U7,R6,D4,L4'))
+
 def nearest_intersection(instr1, instr2):
     allIntersections = intersections(instr1, instr2)
+    allIntersections.discard((0,0))
     return sorted(allIntersections, key=manhattan)[0]
 
 
@@ -61,6 +76,6 @@ def puzzle1(ins1, ins2):
     print('Solution1: ', manhattan(nearest_intersection(ins1, ins2)))
 
 
-puzzle1('R75,D30,R83,U83,L12,D49,R71,U7,L72','U62,R66,U55,R34,D71,R55,D58,R83')
-puzzle1('R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51','U98,R91,D20,R16,D67,R40,U7,R15,U6,R7')
+# puzzle1('R75,D30,R83,U83,L12,D49,R71,U7,L72','U62,R66,U55,R34,D71,R55,D58,R83')
+# puzzle1('R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51','U98,R91,D20,R16,D67,R40,U7,R15,U6,R7')
 puzzle1(day3[0], day3[1])
