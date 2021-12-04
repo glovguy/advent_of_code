@@ -18,7 +18,6 @@ function main()
     gamma_str = ""
     eps_str = ""
     for c in counts
-        # println(c)
         if c > h/2
             gamma_str *= "1"
             eps_str *= "0"
