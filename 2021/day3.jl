@@ -32,7 +32,7 @@ function main()
     println("gamma binary: $gamma_str, epsilon binary: $eps_str")
     println("gamma: $gamma, epsilon: $epsilon")
     ans = gamma*epsilon
-    println("Answer: $ans")
+    println("Answer 1: $ans")
 end
 
 main()
