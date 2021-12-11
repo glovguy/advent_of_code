@@ -27,19 +27,19 @@ function main()
     end
 
     function tick()
-        flashingOctos = Dict()
-
         foreach(excite, CartesianIndices(octos))
         flashCount += length(flashingOctos)
-
-        for key in keys(flashingOctos)
-            octos[key] = 0
-        end
 
         if isnothing(ans2) && length(keys(flashingOctos)) == length(octos)
             println("Answer 2: ", step)
             ans2 = step
         end
+
+        for key in keys(flashingOctos)
+            octos[key] = 0
+            delete!(flashingOctos, key)
+        end
+
         step += 1
     end
 
