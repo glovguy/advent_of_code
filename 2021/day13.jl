@@ -37,6 +37,7 @@ function main()
                 end
             end
         end
+        paper = paper[1:end, 1:val]
     end
 
     function foldx(val)
@@ -54,6 +55,7 @@ function main()
                 end
             end
         end
+        paper = paper[1:val, 1:end]
     end
 
     function foldxy(fold)
@@ -86,17 +88,21 @@ function main()
         foldxy(fold)
     end
 
-    mx = 0
-    my = 0
-    for i in CartesianIndices(paper)
-        if paper[i] && i[1] > mx
-            mx = i[1]
+    function resize!(paper)
+        mx = 0
+        my = 0
+        for i in CartesianIndices(paper)
+            if paper[i] && i[1] > mx
+                mx = i[1]
+            end
+            if paper[i] && i[2] > my
+                my = i[2]
+            end
         end
-        if paper[i] && i[2] > my
-            my = i[2]
-        end
+        paper = paper[1:mx,1:my]
     end
-    println(pretty(paper[1:mx,1:my]))
+
+    println(pretty(paper))
 end
 
 main()
