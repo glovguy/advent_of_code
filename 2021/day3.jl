@@ -8,7 +8,7 @@ function main()
     counts = fill(0, w)
 
     for measurement in measurements
-        for i in range(1, w, step=1)
+        for i in 1:w
             if measurement[i] == '1'
                 counts[i] += 1
             end
@@ -31,8 +31,51 @@ function main()
     epsilon = parse(Int, eps_str, base=2)
     println("gamma binary: $gamma_str, epsilon binary: $eps_str")
     println("gamma: $gamma, epsilon: $epsilon")
-    ans = gamma*epsilon
-    println("Answer 1: $ans")
+    ans1 = gamma*epsilon
+    println("Answer 1: $ans1")
+
+    oxy_measurements = copy(measurements)
+    oxy = nothing
+    co2_measurements = copy(measurements)
+    co2 = nothing
+
+    function countsat(arr::Array, i)
+        count = 0
+        for item in arr
+            if item[i] == '1'
+                count += 1
+            end
+        end
+
+        return count
+    end
+
+    for i in 1:w
+        if isnothing(oxy)
+            count = countsat(oxy_measurements, i)
+            mcd_oxy = (count >= length(oxy_measurements)/2) ? 1 : 0
+            oxy_measurements = filter(m -> parse(Int, m[i]) == mcd_oxy, oxy_measurements)
+            
+            if length(oxy_measurements) == 1
+                oxy = parse(Int, oxy_measurements[1], base=2)
+            end
+        end
+
+        if isnothing(co2)
+            count = countsat(co2_measurements, i)
+            mcd_co2 = (count >= length(co2_measurements)/2) ? 0 : 1
+            co2_measurements = filter(m -> parse(Int, m[i]) == mcd_co2, co2_measurements)
+            
+            if length(co2_measurements) == 1
+                co2 = parse(Int, co2_measurements[1], base=2)
+            end
+        end
+    end
+
+    println("oxy: $oxy, co2: $co2")
+    ans2 = oxy*co2
+    println("Answer 2: $ans2")
+
 end
 
 main()

@@ -6,12 +6,9 @@ function main()
     posx = 0
     depth = 0
 
-
     for movement in movements
         direction, value_str = split(movement, " ")
         value = parse(Int64, value_str)
-        # println(direction)
-        # println(value)
         if direction == "up"
             depth -= value
         elseif direction == "down"
@@ -22,13 +19,29 @@ function main()
     end
 
     println("Position: $posx, depth: $depth")
-    ans = posx * depth
-    println("Problem 1 answer: $ans")
+    ans1 = posx * depth
+    println("Problem 1 answer: $ans1")
+
+    posx = 0
+    depth = 0
+    aim = 0
+
+    for movement in movements
+        direction, value_str = split(movement, " ")
+        value = parse(Int64, value_str)
+        if direction == "up"
+            aim -= value
+        elseif direction == "down"
+            aim += value
+        elseif direction == "forward"
+            posx += value
+            depth += aim*value
+        end
+    end
+
+    println("Position: $posx, depth: $depth")
+    ans2 = posx * depth
+    println("Problem 2 answer: $ans2")
 end
 
 main()
-
-function main2()
-end
-
-main2()
