@@ -1,2 +1,5 @@
 .DS_Store
 *.pyc
+
+# input files
+2023/input*.txt
