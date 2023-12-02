@@ -7,7 +7,6 @@ def part1_each_line(line):
             lastChar = char
     return int(firstChar + lastChar)
 
-
 SPELLED_DIGITS = {
     "one": "1",
     "two": "2",
@@ -19,6 +18,7 @@ SPELLED_DIGITS = {
     "eight": "8",
     "nine": "9"
 }
+
 def part2_each_line(line):
     firstChar = lastChar = None
     for i in range(0, len(line)):
@@ -45,5 +45,3 @@ with open("2023/input_day1.txt", "r") as f:
         totalPart2 += part2_each_line(line)
     print(totalPart1)
     print(totalPart2)
-    
-            
